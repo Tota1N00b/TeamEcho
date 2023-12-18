@@ -1,10 +1,6 @@
 function preload() {
-  paradox = loadImage(
-    "https://freight.cargo.site/t/original/i/W1536930023558211048011072795331/Paradox.png"
-  );
-  title = loadImage(
-    "https://freight.cargo.site/t/original/i/Y1536930023539764303937363243715/Title.png"
-  );
+  paradox = loadImage("assets/Paradox.png");
+  title = loadImage("assets/Title.png");
 }
 
 function setup() {
