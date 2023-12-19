@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   background: black;
+  position: relative;
 }
 
 canvas {
@@ -30,7 +31,7 @@ canvas {
   z-index: 2;
 }
 
-.link a:visited, .link a:hover, .link a:active {
+.link a:link, .link a:visited, .link a:hover, .link a:active {
   color: white;
   text-decoration: none;
 }
