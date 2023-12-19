@@ -1,8 +1,83 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background: black;
 }
+
 canvas {
   display: block;
+}
+
+#logo-container {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+}
+
+.link {
+  font-family: 'Chakra Petch', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 3rem;
+  color: white;
+  position: relative;
+}
+
+.link a {
+  text-decoration: none;
+  position: relative;
+  z-index: 2;
+}
+
+.link a:visited, .link a:hover, .link a:active {
+  color: white;
+  text-decoration: none;
+}
+
+.link>div, .link>a {
+  margin: 0;
+  padding: 0;
+}
+
+#top-right {
+  text-align: right;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+#bottom-left {
+  text-align: right;
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 10;
+}
+
+#bottom-right {
+  text-align: right;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+.custom-line {
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.265);
+  margin-top: 0.25rem;
+  width: 30%;
+  position: absolute;
+  bottom: 100%;
+  top: 4rem;
+  right: 0rem;
+  transform: rotate(0deg);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.link a:hover~.custom-line {
+  transform: rotate(-30deg);
 }
