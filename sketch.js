@@ -1,5 +1,6 @@
 function preload() {
-  paradox = loadImage("assets/Paradox.png");
+  ring = loadImage("assets/ParadoxRing3.png");
+  pattern = loadImage("assets/ParadoxPattern.png");
   title = loadImage("assets/Title.png");
 }
 
@@ -7,8 +8,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 }
 
-let paradox, title;
-let resizedWidthP, resizedHeightP, resizedWidthT, resizedHeightT;
+let ring, pattern, title;
+let resizedWidthR, resizedHeightR, resizedWidthP, resizedHeightP, resizedWidthT, resizedHeightT;
 
 function draw() {
   clear();
@@ -16,29 +17,37 @@ function draw() {
   imageMode(CENTER);
   resizeImage();
   translate(width / 2, height / 2);
-  blendMode(DIFFERENCE);
+  blendMode(BLEND);
+  push();
+  rotate(-millis() / 10000);
+  image(pattern, 0, 0, resizedWidthP, resizedHeightP);
+  pop();
   push();
   rotate(millis() / 5000);
-  image(paradox, 0, 0, resizedWidthP, resizedHeightP);
+  image(ring, 0, 0, resizedWidthR, resizedHeightR);
   pop();
+  blendMode(DIFFERENCE);
   image(title, 0, 0, resizedWidthT, resizedHeightT);
 }
 
 function resizeImage() {
-  let rP = paradox.width / paradox.height;
+  let rR = ring.width / ring.height;
+  let rP = pattern.width / pattern.height;
   let rT = title.width / title.height;
   let rW = width / height;
-  let rPT = paradox.width / title.width;
+  let rRT = ring.width / title.width;
+  let rRP = ring.width / pattern.width;
 
-  if (rW <= rP) {
-    resizedWidthP = width;
-    resizedHeightP = width / rP;
+  if (rW <= rR) {
+    resizedWidthR = width;
+    resizedHeightR = width / rR;
   } else {
-    resizedHeightP = height;
-    resizedWidthP = height * rP;
+    resizedHeightR = height;
+    resizedWidthR = height * rR;
   }
-
-  resizedWidthT = resizedWidthP / rPT;
+  resizedWidthP = resizedWidthR / rRP;
+  resizedHeightP = resizedWidthP / rP;
+  resizedWidthT = resizedWidthR / rRT;
   resizedHeightT = resizedWidthT / rT;
 }
 
