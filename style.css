@@ -85,7 +85,7 @@ nav {
     width: 22.5rem;
     height: 2.5rem;
     padding: 0px 2.5rem;
-    gap: 0.5rem;
+    gap: 0rem;
     justify-content: flex-end;
     align-items: center;
     flex-shrink: 0;
@@ -98,7 +98,7 @@ nav {
     );
     background-size: 0% 100%;
     background-repeat: no-repeat;
-    transition: color 0.5s ease, background-size 0.5s ease;
+    transition: color 0.5s ease, background-size 0.5s ease, gap 0.5s ease;
 
     color: var(--White, #fff);
     text-align: right;
@@ -114,6 +114,7 @@ nav {
 .link:hover {
     background-size: 100% 100%;
     color: var(--Black, #000);
+    gap: 0.5rem;
 }
 
 .arrow-outward {
