@@ -51,6 +51,12 @@ main {
     align-items: flex-start;
 }
 
+h1 {
+    font-family: var(--link);
+    font-size: 2rem;
+    color: var(--white);
+}
+
 .header {
     display: flex;
     align-items: flex-start;
@@ -98,7 +104,7 @@ nav {
     );
     background-size: 0% 100%;
     background-repeat: no-repeat;
-    transition: color 0.5s ease, background-size 0.5s ease, gap 0.5s ease;
+    transition: all 0.5s ease;
 
     color: var(--White, #fff);
     text-align: right;
@@ -120,13 +126,13 @@ nav {
 .arrow-outward {
     opacity: 0;
     transition: opacity 0.5s ease;
-    width:0;
-    transition:width 0.5s ease;
+    width: 0;
+    transition: width 0.5s ease;
 }
 
 .link:hover .arrow-outward {
     opacity: 1;
-    width:18px;
+    width: 18px;
 }
 
 .toggle-canvas {
@@ -227,4 +233,53 @@ nav {
     .toggle-canvas {
         flex-wrap: wrap;
     }
+
+    .slidyboy {
+        width: 75%;
+    }
+
+    .paradox {
+        font-size: 2rem;
+        width: 200px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+    }
+}
+
+.slidyboy {
+    position: absolute;
+    top: 15%;
+    right: 0px;
+    padding-top: 0px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    transform: translate(75vw, 0px);
+    width: 65%;
+    height: 65%;
+    transition: all 0.75s ease;
+    background-color: rgb(0, 0, 0, 0.5);
+    opacity: 1;
+    overflow-y: scroll;
+}
+
+.slidyboy.toggled {
+    transform: translate(0vw, 0px);
+    opacity: 1;
+}
+
+.slidyboy-header {
+    display: flex;
+    justify-content: space-between;
+    align-self: stretch;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.close-icon:hover {
+    cursor: pointer;
+}
+
+.close-icon:hover path{
+    fill: var(--white);
 }
