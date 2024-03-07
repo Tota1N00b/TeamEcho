@@ -1,41 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chakra+Petch">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+  </head>
+  <body>
+    <main>
+      <header class="header">
+        <img
+          class="logo-icon"
+          loading="lazy"
+          src="assets/TEAMECHO.svg" 
+          alt="Logo"
+        />
 
-<head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chakra+Petch">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <meta charset="utf-8" />
+        <nav>
+          <button class="link">
+            <b>The Power Paradox</b>
+          </button>
+          <button class="link">
+            <b>about us</b>
+          </button>
+          <button class="link link-follow">
+            <b>Follow</b>
+            <img class="arrow-outward" alt="social" src="./assets/arrow_outward.svg"/>
+          </button>
 
-</head>
-
-<body>
-  <main>
-  </main>
-  <div id="logo-container">
-    <a href="index.html">
-      <img src="assets/TEAMECHO.svg" alt="Logo">
-    </a>
-  </div>
-  <div class="link" id="top-right">
-    <div>PROJECT</div>
-    <a href="index.html" style="font-size: 1.5rem;">
-     THE POWER PARADOX
-    </a>
-    <div class="custom-line"></div>
-  </div>
-  <div class="link" id="bottom-left">
-    <a href="index.html">
-      ABOUT
-    </a>
-  </div>
-  <div class="link" id="bottom-right">
-    <a href="https://www.instagram.com/teamecho.studio">
-      FOLLOW
-    </a>
-  </div>
-  <script src="sketch.js"></script>
-</body>
-
+          <script>
+            document.querySelector('.link-follow').addEventListener('click', function() {
+    window.open('https://www.instagram.com/teamecho.studio', '_blank');
+});
+          </script>
+        </nav>
+      </header>
+      <div class="toggle-canvas">
+        <button class="canvas-arrow canvas-arrow-left">
+            <img class="arrow-icon-left" alt="left" src="./assets/arrow_left.svg"/>
+            <img class="arrow-icon arrow-icon-hover" alt="left new" src="./assets/arrow_left_new.svg"/>
+        </button>
+        
+        <button class="canvas-arrow canvas-arrow-right">
+            <img class="arrow-icon-right" alt="right" src="./assets/arrow_right.svg"/>
+            <img class="arrow-icon arrow-icon-hover" alt="right new" src="./assets/arrow_right_new.svg"/>
+        </button>
+      </div>
+      <footer class="footer">
+        <div class="div">2023 - 2024</div>
+      </footer>
+    </main>
+    <script src="sketch.js"></script>
+  </body>
 </html>
