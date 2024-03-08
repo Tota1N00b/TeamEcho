@@ -4,8 +4,8 @@
 <rect id="Bounding box" width="48" height="48" fill="#D9D9D9"/>
 </mask>
 <g mask="url(#mask0_5_136)">
-<path id="arrow_back_ios_new_2" d="M25 44L5 24L25 4L27.8 6.85L10.65 24L27.8 41.15L25 44Z" fill="black"/>
-<path id="Vector 1" d="M9.5 24H44.25" stroke="black" stroke-width="4"/>
+<path id="arrow_back_ios_new_2" d="M25 44L5 24L25 4L27.8 6.85L10.65 24L27.8 41.15L25 44Z" fill="white"/>
+<path id="Vector 1" d="M9.5 24H44.25" stroke="white" stroke-width="4"/>
 </g>
 </g>
 </svg>

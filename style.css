@@ -3,7 +3,14 @@
     --link: "Chakra Petch";
 
     /* font sizes */
-    --link-size: 1.5rem;
+    /* --link-size: 1.5rem; */
+    --link-size: clamp(0.5rem,2.5vw,1.5rem);
+    --link-icon-size: clamp(0.4rem,1.8vw,1.125rem);
+
+    --toggle-canvas-icon: clamp(1.05rem,4.8vw,3rem);
+    --toggle-canvas-icon-box: clamp(1.48rem,6.8vw,4.25rem);
+    --toggle-canvas-icon-transform: clamp(0.35rem,1.6vw,1rem);
+    --toggle-canvas-icon-transform-negative: clamp(-0.35rem,-1.6vw,-1rem);
 
     /* Colors */
     --white: #fff;
@@ -14,9 +21,6 @@
     /* Paddings */
     --padding-xl: 1.25rem;
     --padding-3xs: 0.625rem;
-
-    /* Border radiuses */
-    --br-8xs: 5px;
 }
 
 html,
@@ -48,13 +52,14 @@ main {
     box-sizing: border-box;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
 }
 
 h1 {
     font-family: var(--link);
-    font-size: 2rem;
+    font-size: clamp(0.5rem,5vw,2rem);
     color: var(--white);
+    margin: 0;
 }
 
 .header {
@@ -69,6 +74,9 @@ h1 {
     font-size: var(--link-size);
     color: var(--white);
     font-family: var(--link);
+    width:clamp(200px,100%,1800px);
+    margin-right: auto; 
+    margin-left: auto;
 }
 nav {
     display: flex;
@@ -77,8 +85,8 @@ nav {
 }
 
 .logo-icon {
-    height: 6.913rem;
-    width: 7.063rem;
+    height: clamp(3rem, 12vh, 7.5rem);
+    width: auto;
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
@@ -88,9 +96,10 @@ nav {
 .link {
     cursor: pointer;
     display: flex;
-    width: 22.5rem;
-    height: 2.5rem;
-    padding: 0px 2.5rem;
+    width: clamp(6rem,40vw,22.5rem);
+    height: clamp(1rem, 4vh,2.5rem);
+    /* height: 2.5rem; */
+    /* padding: 0px 2.5rem; */
     gap: 0rem;
     justify-content: flex-end;
     align-items: center;
@@ -132,7 +141,8 @@ nav {
 
 .link:hover .arrow-outward {
     opacity: 1;
-    width: 18px;
+    width: var(--link-icon-size);
+    /* width: 18px; */
 }
 
 .toggle-canvas {
@@ -142,15 +152,21 @@ nav {
     align-self: stretch;
     align-items: flex-start;
     justify-content: space-between;
+    width:clamp(200px,100%,2100px);
+    margin-right: auto; 
+    margin-left: auto;
 }
 
 .canvas-arrow {
     cursor: pointer;
-    border: 2px solid var(--gray);
+    /* border: 2px solid var(--gray); */
+    border: none;
     padding: var(--padding-3xs);
     background-color: transparent;
-    width: 4.25rem;
-    height: 4.25rem;
+    /* width: 4.25rem;
+    height: 4.25rem; */
+    width: var(--toggle-canvas-icon-box);
+    height: var(--toggle-canvas-icon-box);
     box-sizing: border-box;
     overflow: hidden;
     flex-shrink: 0;
@@ -164,33 +180,39 @@ nav {
 
 .arrow-icon-left,
 .arrow-icon-right {
-    height: 3rem;
-    width: 3rem;
+    /* height: 3rem;
+    width: 3rem; */
+    width: var(--toggle-canvas-icon);
+    height: var(--toggle-canvas-icon);
     position: absolute;
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .arrow-icon-hover {
-    height: 3rem;
-    width: 3rem;
+    /* height: 3rem;
+    width: 3rem; */
+    width: var(--toggle-canvas-icon);
+    height: var(--toggle-canvas-icon);
     opacity: 0;
     position: absolute;
     transition: opacity 0.5s ease;
 }
 
 .canvas-arrow:hover {
-    border-color: var(--White, #fff);
-    background-color: var(--White, #fff);
+    /* border-color: var(--White, #fff);
+    background-color: var(--White, #fff); */
 }
 
 .canvas-arrow:hover .arrow-icon-left {
     opacity: 0;
-    transform: translateX(-1rem);
+    /* transform: translateX(-1rem); */
+    transform: translateX(var(--toggle-canvas-icon-transform-negative));
 }
 
 .canvas-arrow:hover .arrow-icon-right {
     opacity: 0;
-    transform: translateX(1rem);
+    /* transform: translateX(1rem); */
+    transform: translateX(var(--toggle-canvas-icon-transform));
 }
 
 .canvas-arrow:hover .arrow-icon-hover {
@@ -271,6 +293,7 @@ nav {
 .slidyboy-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     align-self: stretch;
     max-width: 100%;
     overflow: hidden;
@@ -283,3 +306,13 @@ nav {
 .close-icon:hover path{
     fill: var(--white);
 }
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }
