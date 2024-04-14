@@ -5,24 +5,30 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight, WEBGL);
 
   sceneNum = 1;
   maxSceneNum = 2;
 
   points = new Points(width, height);
   getStars();
+  boxGraphic = createGraphics(width, height);
+  tiltAngle = PI / 20;
 }
 
 let sceneNum, maxSceneNum;
 let ring, pattern, title;
 let resizedWidthR, resizedHeightR, resizedWidthP, resizedHeightP, resizedWidthT, resizedHeightT;
+let boxGraphic;
+let tiltAngle;
 let stars = [];
 
 function draw() {
+  background(0);
   resizeImage();
   if (sceneNum == 1) {
     push();
+    translate(-width / 2, -height / 2, 0);
     clear();
     background(0);
     imageMode(CENTER);
@@ -42,7 +48,13 @@ function draw() {
   }
   else if (sceneNum == 2) {
     push();
-    background(0, 50);
+    let ry = map(constrain(mouseX, 0, width), 0, width, -tiltAngle, tiltAngle);
+    let rx = map(constrain(mouseY, 0, height), 0, height, -tiltAngle, tiltAngle);
+    rotateX(rx);
+    rotateY(ry);
+    translate(-width / 2, -height / 2, 0);
+    image(boxGraphic, 0, 0, 0);
+    boxGraphic.background(0, 50);
     const acc = map(mouseX, 0, width, 0.005, 0.2);
     stars.forEach((star) => {
       star.draw();
@@ -183,19 +195,19 @@ class Star {
   }
 
   draw() {
-    push();
-    strokeWeight(2);
-    strokeCap(ROUND);
-    stroke(255, 3);
-    line(this.initPos.x, this.initPos.y, this.endPos.x, this.endPos.y);
-    pop();
+    boxGraphic.push();
+    boxGraphic.strokeWeight(2);
+    boxGraphic.strokeCap(ROUND);
+    boxGraphic.stroke(255, 3);
+    boxGraphic.line(this.initPos.x, this.initPos.y, this.endPos.x, this.endPos.y);
+    boxGraphic.pop();
 
-    push();
+    boxGraphic.push();
     const alpha = map(this.vel.mag(), 0, 3, 0, 255);
-    strokeWeight(3);
-    stroke(255, alpha);
-    line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
-    pop();
+    boxGraphic.strokeWeight(3);
+    boxGraphic.stroke(255, alpha);
+    boxGraphic.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
+    boxGraphic.pop();
   }
 }
 
@@ -203,6 +215,7 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   points.updateXY(width, height);
   getStars();
+  boxGraphic.clear();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
