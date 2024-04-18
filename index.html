@@ -19,10 +19,10 @@
         />
 
         <nav>
-          <button class="link" onclick="toggleSlidyboy()">
+          <button class="link" onclick="togglePowerParadox()">
             <b>The Power Paradox</b>
           </button>
-          <button class="link">
+          <button class="link" onclick="toggleAboutUs()" >
             <b>about us</b>
           </button>
           <button class="link link-follow" onclick="openInsta()">
@@ -47,10 +47,10 @@
       </footer>
     </main>
     <script src="sketch.js"></script>
-    <div class="slidyboy">
+    <div class="slidyboy" id="powerParadox">
         <div class="slidyboy-header">
          <h1>The Power Paradox</h1>
-         <svg onclick="toggleSlidyboy()" class="close-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <svg onclick="togglePowerParadox()" class="close-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="close_small">
             <mask id="mask0_28_17" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
             <rect id="Bounding box" width="48" height="48" fill="#D9D9D9"/>
@@ -63,5 +63,51 @@
         </div>
          <iframe width=100% height=85% src="https://www.youtube.com/embed/kvSfBafQLvc?si=5wXDVqnq1_r9RU93" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
+    <div class="slidyboy" id="aboutUs">
+      <div class="slidyboy-header">
+       <h1>Team Echo</h1>
+       <svg onclick="toggleAboutUs()" class="close-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g id="close_small">
+          <mask id="mask0_28_17" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
+          <rect id="Bounding box" width="48" height="48" fill="#D9D9D9"/>
+          </mask>
+          <g mask="url(#mask0_28_17)">
+          <path id="close_small_2" d="M15 35.1L12.9 33L21.9 24L12.9 15.05L15 12.95L24 21.95L32.95 12.95L35.05 15.05L26.05 24L35.05 33L32.95 35.1L24 26.1L15 35.1Z" fill="#989898"/>
+          </g>
+          </g>
+          </svg>
+      </div>
+       <h3>In Team Echo, we aim to use artistic expression to challenge prevailing narratives and reassess the impact of our digital interactions.</h3>
+       <div class="team-container">
+        <div class="team-member">
+            <img src="assets/teamEcho/binna.jpeg" alt="Binna Lee">
+            <div class="member-info">
+                <h2>Binna Lee</h2>
+                <p>Creative Director</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="assets/teamEcho/cici.jpeg" alt="Cici Zhang">
+            <div class="member-info">
+                <h2>Cici Zhang</h2>
+                <p>Visual Designer</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="assets/teamEcho/roy.jpeg" alt="Roy Yang">
+            <div class="member-info">
+                <h2>Roy Yang</h2>
+                <p>Creative Technician</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="assets/teamEcho/jay.jpeg" alt="Jay Tobin">
+            <div class="member-info">
+                <h2>Jay Tobin</h2>
+                <p>Sound Designer</p>
+            </div>
+        </div>
+    </div>
+  </div>
   </body>
 </html>
