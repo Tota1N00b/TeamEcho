@@ -1,113 +1,122 @@
 <!DOCTYPE html>
 <html>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
-    <script src="index.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chakra+Petch">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
-  </head>
-  <body>
-    <main>
-      <header class="header noselect">
-        <img
-          class="logo-icon"
-          loading="lazy"
-          src="assets/TEAMECHO.svg" 
-          alt="Logo"
-        />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+<script src="index.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chakra+Petch">
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="initial-scale=1, width=device-width" />
+</head>
 
-        <nav>
-          <button class="link" onclick="togglePowerParadox()">
-            <b>The Power Paradox</b>
-          </button>
-          <button class="link" onclick="toggleAboutUs()" >
-            <b>about us</b>
-          </button>
-          <button class="link link-follow" onclick="openInsta()">
-            <b>Follow</b>
-            <img class="arrow-outward" alt="social" src="./assets/arrow_outward.svg"/>
-          </button>
-        </nav>
-      </header>
-      <div class="toggle-canvas">
-        <button id="leftButton" class="canvas-arrow canvas-arrow-left">
-            <img class="arrow-icon-left" alt="left" src="./assets/arrow_left.svg"/>
-            <img class="arrow-icon arrow-icon-hover" alt="left new" src="./assets/arrow_left_new.svg"/>
+<body>
+  <main>
+    <header class="header noselect">
+      <img class="logo-icon" loading="lazy" src="assets/TEAMECHO.svg" alt="Logo" />
+
+      <nav>
+        <button class="link" onclick="togglePowerParadox()">
+          <b>The Power Paradox</b>
         </button>
-        
-        <button id="rightButton" class="canvas-arrow canvas-arrow-right">
-            <img class="arrow-icon-right" alt="right" src="./assets/arrow_right.svg"/>
-            <img class="arrow-icon arrow-icon-hover" alt="right new" src="./assets/arrow_right_new.svg"/>
+        <button class="link" onclick="toggleAboutUs()">
+          <b>about us</b>
         </button>
-      </div>
-      <footer class="footer noselect">
-        <div class="div">2023 - 2024</div>
-      </footer>
-    </main>
-    <script src="sketch.js"></script>
-    <div class="slidyboy" id="powerParadox">
-        <div class="slidyboy-header">
-         <h1>The Power Paradox</h1>
-         <svg onclick="togglePowerParadox()" class="close-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g id="close_small">
-            <mask id="mask0_28_17" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
-            <rect id="Bounding box" width="48" height="48" fill="#D9D9D9"/>
-            </mask>
-            <g mask="url(#mask0_28_17)">
-            <path id="close_small_2" d="M15 35.1L12.9 33L21.9 24L12.9 15.05L15 12.95L24 21.95L32.95 12.95L35.05 15.05L26.05 24L35.05 33L32.95 35.1L24 26.1L15 35.1Z" fill="#989898"/>
-            </g>
-            </g>
-            </svg>
-        </div>
-         <iframe width=100% height=85% src="https://www.youtube.com/embed/kvSfBafQLvc?si=5wXDVqnq1_r9RU93" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <button class="link link-follow" onclick="openInsta()">
+          <b>Follow</b>
+          <img class="arrow-outward" alt="social" src="./assets/arrow_outward.svg" />
+        </button>
+      </nav>
+    </header>
+    <div class="toggle-canvas">
+      <button id="leftButton" class="canvas-arrow canvas-arrow-left">
+        <img class="arrow-icon-left" alt="left" src="./assets/arrow_left.svg" />
+        <img class="arrow-icon arrow-icon-hover" alt="left new" src="./assets/arrow_left_new.svg" />
+      </button>
+
+      <button id="rightButton" class="canvas-arrow canvas-arrow-right">
+        <img class="arrow-icon-right" alt="right" src="./assets/arrow_right.svg" />
+        <img class="arrow-icon arrow-icon-hover" alt="right new" src="./assets/arrow_right_new.svg" />
+      </button>
     </div>
-    <div class="slidyboy" id="aboutUs">
-      <div class="slidyboy-header">
-       <h1>Team Echo</h1>
-       <svg onclick="toggleAboutUs()" class="close-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g id="close_small">
+    <footer class="footer noselect">
+      <div class="div">2023 - 2024</div>
+    </footer>
+  </main>
+  <script src="sketch.js"></script>
+  <div class="slidyboy" id="powerParadox">
+    <div class="slidyboy-header">
+      <h1>The Power Paradox</h1>
+      <svg onclick="togglePowerParadox()" class="close-icon" width="48" height="48" viewBox="0 0 48 48" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <g id="close_small">
           <mask id="mask0_28_17" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
-          <rect id="Bounding box" width="48" height="48" fill="#D9D9D9"/>
+            <rect id="Bounding box" width="48" height="48" fill="#D9D9D9" />
           </mask>
           <g mask="url(#mask0_28_17)">
-          <path id="close_small_2" d="M15 35.1L12.9 33L21.9 24L12.9 15.05L15 12.95L24 21.95L32.95 12.95L35.05 15.05L26.05 24L35.05 33L32.95 35.1L24 26.1L15 35.1Z" fill="#989898"/>
+            <path id="close_small_2"
+              d="M15 35.1L12.9 33L21.9 24L12.9 15.05L15 12.95L24 21.95L32.95 12.95L35.05 15.05L26.05 24L35.05 33L32.95 35.1L24 26.1L15 35.1Z"
+              fill="#989898" />
           </g>
+        </g>
+      </svg>
+    </div>
+    <iframe width=100% height=85% src="https://www.youtube.com/embed/kvSfBafQLvc?si=5wXDVqnq1_r9RU93"
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+  </div>
+  <div class="slidyboy" id="aboutUs">
+    <div class="slidyboy-header">
+      <h1>Team Echo</h1>
+      <svg onclick="toggleAboutUs()" class="close-icon" width="48" height="48" viewBox="0 0 48 48" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <g id="close_small">
+          <mask id="mask0_28_17" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
+            <rect id="Bounding box" width="48" height="48" fill="#D9D9D9" />
+          </mask>
+          <g mask="url(#mask0_28_17)">
+            <path id="close_small_2"
+              d="M15 35.1L12.9 33L21.9 24L12.9 15.05L15 12.95L24 21.95L32.95 12.95L35.05 15.05L26.05 24L35.05 33L32.95 35.1L24 26.1L15 35.1Z"
+              fill="#989898" />
           </g>
-          </svg>
+        </g>
+      </svg>
+    </div>
+    <div class="h3-container">
+      <h3>At Team Echo, we aim to use artistic expression to challenge prevailing narratives and reassess the impact of
+        our digital interactions.</h3>
+    </div>
+    <div class="team-container">
+      <div class="team-member">
+        <img src="assets/teamEcho/binna.jpeg" alt="Binna Lee">
+        <div class="member-info">
+          <h2>Binna Lee</h2>
+          <p>Creative Director</p>
+        </div>
       </div>
-       <h3>At Team Echo, we aim to use artistic expression to challenge prevailing narratives and reassess the impact of our digital interactions.</h3>
-       <div class="team-container">
-        <div class="team-member">
-            <img src="assets/teamEcho/binna.jpeg" alt="Binna Lee">
-            <div class="member-info">
-                <h2>Binna Lee</h2>
-                <p>Creative Director</p>
-            </div>
+      <div class="team-member">
+        <img src="assets/teamEcho/cici.jpeg" alt="Cici Zhang">
+        <div class="member-info">
+          <h2>Cici Zhang</h2>
+          <p>Visual Designer</p>
         </div>
-        <div class="team-member">
-            <img src="assets/teamEcho/cici.jpeg" alt="Cici Zhang">
-            <div class="member-info">
-                <h2>Cici Zhang</h2>
-                <p>Visual Designer</p>
-            </div>
+      </div>
+      <div class="team-member">
+        <img src="assets/teamEcho/roy.jpeg" alt="Roy Yang">
+        <div class="member-info">
+          <h2>Roy Yang</h2>
+          <p>Creative Technician</p>
         </div>
-        <div class="team-member">
-            <img src="assets/teamEcho/roy.jpeg" alt="Roy Yang">
-            <div class="member-info">
-                <h2>Roy Yang</h2>
-                <p>Creative Technician</p>
-            </div>
+      </div>
+      <div class="team-member">
+        <img src="assets/teamEcho/jay.jpeg" alt="Jay Tobin">
+        <div class="member-info">
+          <h2>Jay Tobin</h2>
+          <p>Sound Designer</p>
         </div>
-        <div class="team-member">
-            <img src="assets/teamEcho/jay.jpeg" alt="Jay Tobin">
-            <div class="member-info">
-                <h2>Jay Tobin</h2>
-                <p>Sound Designer</p>
-            </div>
-        </div>
+      </div>
     </div>
   </div>
-  </body>
+</body>
+
 </html>
