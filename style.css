@@ -402,6 +402,7 @@ nav {
 @media (max-width: 768px) {  /* Adjusts the breakpoint to 768px, common for tablets and mobile devices */
     .slidyboy {
         width: 93%;
+        height: 80%;
         transform: translate(100vw, 0px);
         padding-left: 10px;
         padding-right: 10px;
@@ -417,10 +418,6 @@ nav {
 
     .team-member {
         flex: 0 0 calc(50% - 40px); 
-    }
-
-    .team-member img {
-        max-width: 120px;
     }
 }
 
