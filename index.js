@@ -27,3 +27,30 @@ function toggleAboutUs() {
     // Toggle 'aboutUs' visibility regardless of the current state
     aboutUsElement.classList.toggle("toggled");
 }
+
+let isAudioOn = false;
+
+function changeAudioButtonToOn() {
+    document.getElementById("audio_off").style.opacity = "0";
+    document.getElementById("audio_mute").style.opacity = "0";
+    document.getElementById("audio_on").style.opacity = "1";
+    document.getElementById("audio-tooltip").textContent = "TURN OFF THE SOUND";
+    console.log("audio on");
+}
+
+function changeAudioButtonToOff() {
+    document.getElementById("audio_on").style.opacity = "0";
+    document.getElementById("audio_mute").style.opacity = "0";
+    document.getElementById("audio_off").style.opacity = "1";
+    document.getElementById("audio-tooltip").textContent = "TURN ON THE SOUND";
+    console.log("audio off");
+}
+
+function toggleAudio() {
+    isAudioOn = !isAudioOn;
+    if (isAudioOn) {
+        changeAudioButtonToOn();
+    } else {
+        changeAudioButtonToOff();
+    }
+}
