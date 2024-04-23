@@ -35,20 +35,28 @@ audioButton.addEventListener("click", async () => {
 	//setting parameters
 
 	const grainChord = device.parametersById.get("chord");
+	const grainVol = device.parametersById.get("volume");
+	const grainRate = device.parametersById.get("grainRate");
+	const grainLengthMin = device.parametersById.get("grainLengthMin");
+	const grainStart = device.parametersById.get("startCenterValue");
+	const grainJitter = device.parametersById.get("startJitter");
+	const delayLength = device.parametersById.get("delayLengthMs");
+	const delayDryWet = device.parametersById.get("delayDryWet");
+	const delayRamp = device.parametersById.get("delayRampMs");
+
+	if(window.innerWidth <= 750){
+		delayRamp.value = 1000;
+	}
+	else{
+		delayRamp.value = 20;
+	}
+
 	grainChord.value = 6;
 
 	addEventListener("mousemove", (event) => {
 		//let bounds = window.getBoundingClientRect();
 		let normMouseX = event.clientX / window.innerWidth;
 		let normMouseY = event.clientY / window.innerHeight;
-
-		const grainVol = device.parametersById.get("volume");
-		const grainRate = device.parametersById.get("grainRate");
-		const grainLengthMin = device.parametersById.get("grainLengthMin");
-		const grainStart = device.parametersById.get("startCenterValue");
-		const grainJitter = device.parametersById.get("startJitter");
-		const delayLength = device.parametersById.get("delayLengthMs");
-		const delayDryWet = device.parametersById.get("delayDryWet");
 
 		grainVol.value = 0.8;
 		grainRate.value = 10;
@@ -58,8 +66,6 @@ audioButton.addEventListener("click", async () => {
 		delayLength.value = normMouseX * 200;
 		delayDryWet.value = 0.8;
 	});
-
-	
 
   }, {once: true});
 
