@@ -35,7 +35,7 @@ function changeAudioButtonToOn() {
     document.getElementById("audio_mute").style.opacity = "0";
     document.getElementById("audio_on").style.opacity = "1";
     document.getElementById("audio-tooltip").textContent = "TURN OFF THE SOUND";
-    console.log("audio on");
+    //console.log("audio on");
 }
 
 function changeAudioButtonToOff() {
@@ -43,7 +43,7 @@ function changeAudioButtonToOff() {
     document.getElementById("audio_mute").style.opacity = "0";
     document.getElementById("audio_off").style.opacity = "1";
     document.getElementById("audio-tooltip").textContent = "TURN ON THE SOUND";
-    console.log("audio off");
+    //console.log("audio off");
 }
 
 function toggleAudio() {
