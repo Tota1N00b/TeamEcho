@@ -50,7 +50,9 @@ function toggleAudio() {
     isAudioOn = !isAudioOn;
     if (isAudioOn) {
         changeAudioButtonToOn();
+        audioContext.resume();
     } else {
         changeAudioButtonToOff();
+        audioContext.suspend();
     }
 }
