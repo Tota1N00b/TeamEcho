@@ -56,18 +56,30 @@ function setup() {
     tiltAngle = PI / 20;
 
     pattern.hide();
+    pattern.elt.setAttribute("playsinline", ""); // For newer iOS browsers
+    pattern.elt.setAttribute("webkit-playsinline", ""); // For older iOS browsers
+    pattern.elt.setAttribute("muted", "");
     pattern.volume(0);
     pattern.play();
 
     patternStart.hide();
+    patternStart.elt.setAttribute("playsinline", ""); // For newer iOS browsers
+    patternStart.elt.setAttribute("webkit-playsinline", ""); // For older iOS browsers
+    patternStart.elt.setAttribute("muted", "");
     patternStart.volume(0);
     patternStart.play();
 
     patternTrans.hide();
+    patternTrans.elt.setAttribute("playsinline", ""); // For newer iOS browsers
+    patternTrans.elt.setAttribute("webkit-playsinline", ""); // For older iOS browsers
+    patternTrans.elt.setAttribute("muted", "");
     patternTrans.volume(0);
     patternTrans.play();
 
     patternTransReverse.hide();
+    patternTransReverse.elt.setAttribute("playsinline", ""); // For newer iOS browsers
+    patternTransReverse.elt.setAttribute("webkit-playsinline", ""); // For older iOS browsers
+    patternTransReverse.elt.setAttribute("muted", "");
     patternTransReverse.volume(0);
     patternTransReverse.play();
 
