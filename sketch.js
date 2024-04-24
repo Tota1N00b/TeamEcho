@@ -1,7 +1,7 @@
 function preload() {
     ring = loadImage("assets/ParadoxRing3.png");
     // pattern = loadImage("assets/ParadoxPattern.png");
-    // patternPic = loadImage("assets/ParadoxPattern.png");
+    patternPic = loadImage("assets/ParadoxPattern.png");
     pattern = createVideo(
         "assets/patterns/ParadoxPatternOpen.mp4",
         getDuration
@@ -145,6 +145,7 @@ function draw() {
                     if (vidEnd()) patternNextReady = true;
                     break;
             }
+        else image(patternPic, 0, 0, resizedWidthP, resizedHeightP); //show static image if pattern video is not loaded
         if (patternNextReady && vidEnd()) {
             patternNextReady = false;
             patternNum++;
@@ -176,7 +177,6 @@ function draw() {
                     break;
             }
         }
-        // image(patternPic, 0, 0, resizedWidthP, resizedHeightP);
         pop();
         push();
         rotate(millis() / 5000);
