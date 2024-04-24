@@ -1,7 +1,46 @@
 function preload() {
     ring = loadImage("assets/ParadoxRing3.png");
-    pattern = loadImage("assets/ParadoxPattern.png");
+    // pattern = loadImage("assets/ParadoxPattern.png");
+    // patternPic = loadImage("assets/ParadoxPattern.png");
+    pattern = createVideo(
+        "assets/patterns/ParadoxPatternOpen.mp4",
+        getDuration
+    );
+    patternStart = createVideo(
+        "assets/patterns/ParadoxPatternClose.mp4",
+        getDuration
+    );
+    patternTrans = createVideo("assets/patterns/CloseToOpen.mp4", getDuration);
+    patternTransReverse = createVideo(
+        "assets/patterns/OpenToClose.mp4",
+        getDuration
+    );
     title = loadImage("assets/Title.png");
+    pattern.size(windowWidth, windowHeight);
+    pattern.noLoop();
+    patternStart.size(windowWidth, windowHeight);
+    patternStart.noLoop();
+    patternTrans.size(windowWidth, windowHeight);
+    patternTrans.noLoop();
+    patternTransReverse.size(windowWidth, windowHeight);
+    patternTransReverse.noLoop();
+}
+
+function getDuration() {
+    dPattern = pattern.duration();
+    dPatternStart = patternStart.duration();
+    dPatternTrans = patternTrans.duration();
+    dPatternTransReverse = patternTransReverse.duration();
+    if (
+        dPattern != NaN &&
+        dPatternStart != NaN &&
+        dPatternTrans != NaN &&
+        dPatternTransReverse != NaN
+    ) {
+        patternLoaded = true;
+    } else {
+        patternLoaded = false;
+    }
 }
 
 function setup() {
@@ -9,15 +48,44 @@ function setup() {
 
     sceneNum = 1;
     maxSceneNum = 2;
+    patternNum = 0;
 
     points = new Points(width, height);
     getStars();
     boxGraphic = createGraphics(width, height);
     tiltAngle = PI / 20;
+
+    pattern.hide();
+    pattern.volume(0);
+    pattern.play();
+
+    patternStart.hide();
+    patternStart.volume(0);
+    patternStart.play();
+
+    patternTrans.hide();
+    patternTrans.volume(0);
+    patternTrans.play();
+
+    patternTransReverse.hide();
+    patternTransReverse.volume(0);
+    patternTransReverse.play();
+
+    patternTrans.stop();
+    pattern.stop();
+    patternTransReverse.stop();
 }
 
 let sceneNum, maxSceneNum;
-let ring, pattern, title;
+let ring, title, pattern, patternStart, patternTrans, patternTransReverse;
+let dPattern,
+    dPatternStart,
+    dPatternTrans,
+    dPatternTransReverse,
+    patternLoaded = false;
+let patternNextReady = false;
+let patternNum;
+let vidTime, vidDuration;
 let resizedWidthR,
     resizedHeightR,
     resizedWidthP,
@@ -41,13 +109,80 @@ function draw() {
         blendMode(BLEND);
         push();
         rotate(-millis() / 10000);
-        image(pattern, 0, 0, resizedWidthP, resizedHeightP);
+        if (patternLoaded)
+            switch (patternNum) {
+                case 0:
+                    image(patternStart, 0, 0, resizedWidthP, resizedHeightP);
+                    vidTime = patternStart.time();
+                    vidDuration = dPatternStart;
+                    if (vidEnd() && !patternNextReady) patternStart.play();
+                    break;
+
+                case 1:
+                    image(patternTrans, 0, 0, resizedWidthP, resizedHeightP);
+                    vidTime = patternTrans.time();
+                    vidDuration = dPatternTrans;
+                    if (vidEnd()) patternNextReady = true;
+                    break;
+
+                case 2:
+                    image(pattern, 0, 0, resizedWidthP, resizedHeightP);
+                    vidTime = pattern.time();
+                    vidDuration = dPattern;
+                    if (vidEnd() && !patternNextReady) pattern.play();
+                    break;
+
+                case 3:
+                    image(
+                        patternTransReverse,
+                        0,
+                        0,
+                        resizedWidthP,
+                        resizedHeightP
+                    );
+                    vidTime = patternTransReverse.time();
+                    vidDuration = dPatternTransReverse;
+                    if (vidEnd()) patternNextReady = true;
+                    break;
+            }
+        if (patternNextReady && vidEnd()) {
+            patternNextReady = false;
+            patternNum++;
+            if (patternNum > 3) patternNum = 0;
+            switch (patternNum) {
+                case 0:
+                    patternStart.play();
+                    patternTrans.stop();
+                    pattern.stop();
+                    patternTransReverse.stop();
+                    break;
+                case 1:
+                    patternStart.stop();
+                    patternTrans.play();
+                    pattern.stop();
+                    patternTransReverse.stop();
+                    break;
+                case 2:
+                    patternStart.stop();
+                    patternTrans.stop();
+                    pattern.play();
+                    patternTransReverse.stop();
+                    break;
+                case 3:
+                    patternStart.stop();
+                    patternTrans.stop();
+                    pattern.stop();
+                    patternTransReverse.play();
+                    break;
+            }
+        }
+        // image(patternPic, 0, 0, resizedWidthP, resizedHeightP);
         pop();
         push();
         rotate(millis() / 5000);
         image(ring, 0, 0, resizedWidthR, resizedHeightR);
         pop();
-        blendMode(DIFFERENCE);
+        // blendMode(MULTIPLY);
         image(title, 0, 0, resizedWidthT, resizedHeightT);
         pop();
     } else if (sceneNum == 2) {
@@ -103,6 +238,29 @@ function resizeImage() {
     resizedHeightP = resizedWidthP / rP;
     resizedWidthT = resizedWidthR / rRT;
     resizedHeightT = resizedWidthT / rT;
+}
+
+function mousePressed() {
+    if (patternLoaded && sceneNum == 1 && mouseIsInsideTheRing()) {
+        patternNextReady = true;
+        // console.log("pattern Next Ready in " + (vidDuration - vidTime) + " seconds");
+    }
+}
+
+function mouseIsInsideTheRing() {
+    if (
+        mouseX > width / 2 - resizedWidthR / 2 &&
+        mouseX < width / 2 + resizedWidthR / 2 &&
+        mouseY > height / 2 - resizedHeightR / 2 &&
+        mouseY < height / 2 + resizedHeightR / 2
+    )
+        return true;
+    else return false;
+}
+
+function vidEnd() {
+    if (vidDuration - vidTime == 0) return true;
+    else return false;
 }
 
 class Points {
