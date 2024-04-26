@@ -49,6 +49,9 @@ function setup() {
     sceneNum = 1;
     maxSceneNum = 2;
     patternNum = 0;
+    scaleNum = 1;
+    translateY = 0;
+    opacityVal = 0;
 
     points = new Points(width, height);
     getStars();
@@ -89,6 +92,9 @@ function setup() {
 }
 
 let sceneNum, maxSceneNum;
+let overlayContent;
+let overlayHeading, overlayText;
+let canvasScaleNum, canvasTranslateY, scaleNum, translateY, opacityVal;
 let ring, title, pattern, patternStart, patternTrans, patternTransReverse;
 let dPattern,
     dPatternStart,
@@ -108,9 +114,84 @@ let boxGraphic;
 let tiltAngle;
 let stars = [];
 
+let showDetails = false;
+
+function togglePrototypeDetail() {
+    showDetails = !showDetails;
+    if (showDetails) {
+        document.getElementById("prototype-info-tooltip").textContent =
+            "HIDE PROTOTYPE DETAILS";
+    } else {
+        document.getElementById("prototype-info-tooltip").textContent =
+            "SHOW MORE ABOUT THIS PROTOTYPE";
+    }
+}
+
 function draw() {
+    push();
     background(0);
     resizeImage();
+    overlayContent = select("div.overlay-content");
+    if (showDetails) {
+        switch (sceneNum) {
+            case 1:
+                overlayHeading = select("div.overlay-content h1");
+                overlayHeading.html("Prototype 2");
+                overlayText = select("div.overlay-content h3");
+                overlayText.html(
+                    "A symphony of vibrant, interactive projection mapping on a mesh structure. This avant-garde Installation prototype delves into the dichotomies of digital discourse, juxtaposing the empowerment of voices with the pitfalls of misinformation. It’s a compelling exploration of digital ethics, challenging the narrative of collective intelligence with the imperative of critical thought through mesmerizing performative projection mapping."
+                );
+                break;
+            case 2:
+                overlayHeading = select("div.overlay-content h1");
+                overlayHeading.html("Prototype 1");
+                overlayText = select("div.overlay-content h3");
+                overlayText.html(
+                    "The Power Paradox is an audio-reactive projection-mapped installation inspired by the intoxicated and imbalanced powers in current society that result in numerous conflicts around us. This project aims to reilluminate the constant conflicts by questioning the essential roles and power of institutions and governments, what power is, and the influence of social connections on power."
+                );
+                break;
+        }
+
+        overlayContent.style("opacity", opacityVal.toString());
+        scale(scaleNum);
+        translate(0, translateY, 0);
+
+        canvasScaleNum = 2;
+        calcCanvasTranslateY();
+
+        if (scaleNum < canvasScaleNum) {
+            scaleNum += 0.04;
+            if (scaleNum > canvasScaleNum) scaleNum = canvasScaleNum;
+        }
+        if (translateY < canvasTranslateY) {
+            translateY += canvasTranslateY / 25;
+            if (translateY > canvasTranslateY) translateY = canvasTranslateY;
+        }
+        if (opacityVal < 1) {
+            opacityVal += 0.04;
+            if (opacityVal > 1) opacityVal = 1;
+        }
+    } else {
+        overlayContent.style("opacity", opacityVal.toString());
+        scale(scaleNum);
+        translate(0, translateY, 0);
+
+        canvasScaleNum = 1;
+        calcCanvasTranslateY();
+
+        if (scaleNum > canvasScaleNum) {
+            scaleNum -= 0.04;
+            if (scaleNum < canvasScaleNum) scaleNum = canvasScaleNum;
+        }
+        if (translateY > 0) {
+            translateY -= canvasTranslateY / 25;
+            if (translateY < 0) translateY = 0;
+        }
+        if (opacityVal > 0) {
+            opacityVal -= 0.04;
+            if (opacityVal < 0) opacityVal = 0;
+        }
+    }
     if (sceneNum == 1) {
         push();
         translate(-width / 2, -height / 2, 0);
@@ -229,6 +310,20 @@ function draw() {
         });
         pop();
     }
+    pop();
+}
+
+function calcCanvasTranslateY() {
+    if (width > height)
+        canvasTranslateY =
+            overlayContent.size().height + 0.1 * height + resizedHeightR * 0.1;
+    else
+        canvasTranslateY =
+            overlayContent.size().height +
+            0.1 * height -
+            height / 2 +
+            resizedHeightR / 2 +
+            resizedHeightR * 0.1;
 }
 
 function resizeImage() {
@@ -417,6 +512,7 @@ function scaleVal() {
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+    calcCanvasTranslateY();
     points.updateXY(width, height);
     getStars();
     boxGraphic.clear();

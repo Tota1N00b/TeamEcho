@@ -201,7 +201,8 @@ nav {
 }
 
 .arrow-icon-left,
-.arrow-icon-right {
+.arrow-icon-right,
+.arrow-icon-up {
     /* height: 3rem;
     width: 3rem; */
     width: var(--toggle-canvas-icon);
@@ -538,6 +539,30 @@ iframe,
     .team-member {
         flex: 0 0 calc(50% - 40px);
     }
+}
+
+.overlay-content {
+    position: absolute;
+    top: calc(15% + clamp(0.25rem, 2.5vw, 1rem));
+    left: 50%;
+    transform: translateX(-50%);
+    width: 66.67%;
+    max-width: 1800px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    opacity: 1;
+}
+
+.overlay-content .h3-container {
+    padding: clamp(0.25rem, 2.5vw, 1rem);
+    max-width: none;
+}
+
+.overlay-content h3 {
+    color: var(--gray);
 }
 
 .noselect {

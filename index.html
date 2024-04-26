@@ -29,6 +29,19 @@
         </button>
       </nav>
     </header>
+    <div class="overlay-content">
+      <div>
+          <h1>Prototype 2</h1>
+      </div>
+      <div>
+        <div class="h3-container">
+          <h3>A symphony of vibrant, interactive projection mapping on a mesh structure. This avant-garde Installation prototype delves into the dichotomies of digital discourse, juxtaposing the empowerment of voices with the pitfalls of misinformation. It’s a compelling exploration of digital ethics, challenging the narrative of collective intelligence with the imperative of critical thought through mesmerizing performative projection mapping.</h3>
+          </div>
+        </div>
+      <button class="canvas-arrow" onclick="togglePrototypeDetail()">
+        <img class="arrow-icon-up" alt="hide details" src="./assets/arrow_up.svg" />
+      </button>
+  </div>
     <div class="toggle-canvas">
       <button id="leftButton" class="canvas-arrow canvas-arrow-left">
         <img class="arrow-icon-left" alt="left" src="./assets/arrow_left.svg" />
@@ -51,7 +64,7 @@
       </div>
       <div class="div">2023 - 2024</div>
       <div class="tool-tip">
-      <button id="prototype-info" class="footer-button footer-button-right">
+      <button id="prototype-info" class="footer-button footer-button-right" onclick="togglePrototypeDetail()">
         <img class="footer-button-icon" alt="more about this prototype" src="./assets/info.svg" />
         <img class="footer-button-icon-hover" alt="click to show more about this prototype" src="./assets/info_hover.svg" />
       </button>
