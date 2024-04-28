@@ -315,6 +315,8 @@ nav {
     z-index: 1;
     top: -.05rem;
     transition: all 0.3s ease;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .tool-tip-text-left {

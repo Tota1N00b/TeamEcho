@@ -127,6 +127,10 @@ function togglePrototypeDetail() {
     }
 }
 
+function closePrototypeDetail() {
+    if (showDetails) togglePrototypeDetail();
+}
+
 function draw() {
     push();
     background(0);
@@ -161,15 +165,18 @@ function draw() {
 
         if (scaleNum < canvasScaleNum) {
             scaleNum += 0.04;
-            if (scaleNum > canvasScaleNum) scaleNum = canvasScaleNum;
+        } else {
+            scaleNum = canvasScaleNum;
         }
         if (translateY < canvasTranslateY) {
             translateY += canvasTranslateY / 25;
-            if (translateY > canvasTranslateY) translateY = canvasTranslateY;
+        } else {
+            translateY = canvasTranslateY;
         }
         if (opacityVal < 1) {
             opacityVal += 0.04;
-            if (opacityVal > 1) opacityVal = 1;
+        } else {
+            opacityVal = 1;
         }
     } else {
         overlayContent.style("opacity", opacityVal.toString());
@@ -192,6 +199,7 @@ function draw() {
             if (opacityVal < 0) opacityVal = 0;
         }
     }
+
     if (sceneNum == 1) {
         push();
         translate(-width / 2, -height / 2, 0);
@@ -314,16 +322,11 @@ function draw() {
 }
 
 function calcCanvasTranslateY() {
-    if (width > height)
-        canvasTranslateY =
-            overlayContent.size().height + 0.1 * height + resizedHeightR * 0.1;
-    else
-        canvasTranslateY =
-            overlayContent.size().height +
-            0.1 * height -
-            height / 2 +
-            resizedHeightR / 2 +
-            resizedHeightR * 0.1;
+    canvasTranslateY =
+        overlayContent.size().height +
+        overlayContent.position().y -
+        height +
+        resizedHeightR;
 }
 
 function resizeImage() {
