@@ -558,9 +558,25 @@ iframe,
     opacity: 1;
 }
 
+.overlay-content .overlay-content-header {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay-content .h3-container-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 50vh;
+}
+
 .overlay-content .h3-container {
     padding: clamp(0.25rem, 2.5vw, 1rem);
     max-width: none;
+    overflow-y: auto;
+    padding-top: 0%;
 }
 
 .overlay-content h3 {

@@ -30,18 +30,22 @@
       </nav>
     </header>
     <div class="overlay-content">
-      <div>
-          <h1>Prototype 2</h1>
+      <div class="overlay-content-header">
+        <h1>Prototype 2</h1>
       </div>
-      <div>
+      <div class="h3-container-container">
         <div class="h3-container">
-          <h3>A symphony of vibrant, interactive projection mapping on a mesh structure. This avant-garde Installation prototype delves into the dichotomies of digital discourse, juxtaposing the empowerment of voices with the pitfalls of misinformation. It’s a compelling exploration of digital ethics, challenging the narrative of collective intelligence with the imperative of critical thought through mesmerizing performative projection mapping.</h3>
-          </div>
+          <h3>A symphony of vibrant, interactive projection mapping on a mesh structure. This avant-garde Installation
+            prototype delves into the dichotomies of digital discourse, juxtaposing the empowerment of voices with the
+            pitfalls of misinformation. It’s a compelling exploration of digital ethics, challenging the narrative of
+            collective intelligence with the imperative of critical thought through mesmerizing performative projection
+            mapping.</h3>
         </div>
+      </div>
       <button class="canvas-arrow" onclick="closePrototypeDetail()">
         <img class="arrow-icon-up" alt="hide details" src="./assets/arrow_up.svg" />
       </button>
-  </div>
+    </div>
     <div class="toggle-canvas">
       <button id="leftButton" class="canvas-arrow canvas-arrow-left">
         <img class="arrow-icon-left" alt="left" src="./assets/arrow_left.svg" />
@@ -55,21 +59,24 @@
     </div>
     <footer class="footer noselect">
       <div class="tool-tip">
-      <button id="audio-button" class="footer-button footer-button-left" onclick="toggleAudio()">
-        <img id="audio_off" class="footer-button-icon" alt="turn on the audio" src="./assets/audio_off.svg" />
-        <img id="audio_mute" class="footer-button-icon-hover" alt="click to turn on the audio" src="./assets/audio.svg" />
-        <img id="audio_on" class="footer-button-icon-clicked" alt="audio is turned on" src="./assets/audio_on.svg" />
-      </button>
-      <span id="audio-tooltip" class="tool-tip-text tool-tip-text-left">TURN ON THE SOUND</span>
+        <button id="audio-button" class="footer-button footer-button-left" onclick="toggleAudio()">
+          <img id="audio_off" class="footer-button-icon" alt="turn on the audio" src="./assets/audio_off.svg" />
+          <img id="audio_mute" class="footer-button-icon-hover" alt="click to turn on the audio"
+            src="./assets/audio.svg" />
+          <img id="audio_on" class="footer-button-icon-clicked" alt="audio is turned on" src="./assets/audio_on.svg" />
+        </button>
+        <span id="audio-tooltip" class="tool-tip-text tool-tip-text-left">TURN ON THE SOUND</span>
       </div>
       <div class="div">2023 - 2024</div>
       <div class="tool-tip">
-      <button id="prototype-info" class="footer-button footer-button-right" onclick="togglePrototypeDetail()">
-        <img class="footer-button-icon" alt="more about this prototype" src="./assets/info.svg" />
-        <img class="footer-button-icon-hover" alt="click to show more about this prototype" src="./assets/info_hover.svg" />
-      </button>
-      <span id="prototype-info-tooltip" class="tool-tip-text tool-tip-text-right">SHOW MORE ABOUT THIS PROTOTYPE</span>
-    </div>
+        <button id="prototype-info" class="footer-button footer-button-right" onclick="togglePrototypeDetail()">
+          <img class="footer-button-icon" alt="more about this prototype" src="./assets/info.svg" />
+          <img class="footer-button-icon-hover" alt="click to show more about this prototype"
+            src="./assets/info_hover.svg" />
+        </button>
+        <span id="prototype-info-tooltip" class="tool-tip-text tool-tip-text-right">SHOW MORE ABOUT THIS
+          PROTOTYPE</span>
+      </div>
     </footer>
   </main>
   <script src="sketch.js"></script>
