@@ -200,7 +200,8 @@ function draw() {
         }
         if (opacityVal > 0) {
             opacityVal -= 0.04;
-            if (opacityVal < 0) opacityVal = 0;
+        } else {
+            opacityVal = 0;
         }
     }
 
