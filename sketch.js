@@ -43,8 +43,11 @@ function getDuration() {
     }
 }
 
+let cnv;
+
 function setup() {
-    createCanvas(windowWidth, windowHeight, WEBGL);
+    cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+    cnv.parent("sketch-holder");
 
     sceneNum = 1;
     maxSceneNum = 2;
@@ -192,7 +195,8 @@ function draw() {
         }
         if (translateY > 0) {
             translateY -= canvasTranslateY / 25;
-            if (translateY < 0) translateY = 0;
+        } else {
+            translateY = 0;
         }
         if (opacityVal > 0) {
             opacityVal -= 0.04;
@@ -318,15 +322,40 @@ function draw() {
         });
         pop();
     }
+    // Code commented out below is for debugging purposes
+    // push();
+    // noFill();
+    // stroke("green");
+    // circle(0, -resizedHeightR / 2 - 50, 100);
+    // stroke("red");
+    // circle(0, 0, resizedHeightR);
+    // circle(0, 0, resizedHeightT);
+    // stroke("black");
+    // circle(0, 0, 5);
+    // stroke("blue");
+    // circle(0, +resizedHeightR / 2 + 50, 100);
+    // pop();
     pop();
 }
 
 function calcCanvasTranslateY() {
-    canvasTranslateY =
-        overlayContent.size().height +
-        overlayContent.position().y -
-        height +
-        resizedHeightR;
+    // canvasTranslateY =
+    //     overlayContent.size().height +
+    //     overlayContent.position().y -
+    //     height +
+    //     resizedHeightR;
+    if (sceneNum == 1)
+        canvasTranslateY =
+            (resizedWidthT + resizedWidthR) / 4 -
+            height / 4 +
+            overlayContent.position().y / 2 +
+            overlayContent.size().height / 2;
+    else if (sceneNum == 2)
+        canvasTranslateY =
+            resizedWidthT / 2 -
+            height / 4 +
+            overlayContent.position().y / 2 +
+            overlayContent.size().height / 2;
 }
 
 function resizeImage() {
@@ -514,7 +543,7 @@ function scaleVal() {
 }
 
 function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
+    cnv = resizeCanvas(windowWidth, windowHeight);
     calcCanvasTranslateY();
     points.updateXY(width, height);
     getStars();

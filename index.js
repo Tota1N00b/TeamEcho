@@ -56,3 +56,22 @@ function toggleAudio() {
         audioContext.suspend();
     }
 }
+
+document.ondblclick = function (e) {
+    e.preventDefault();
+};
+
+// document.addEventListener("gesturestart", function (e) {
+//     e.preventDefault();
+//     document.body.style.zoom = 0.9999999;
+// });
+
+// document.addEventListener("gesturechange", function (e) {
+//     e.preventDefault();
+
+//     document.body.style.zoom = 0.99999999;
+// });
+// document.addEventListener("gestureend", function (e) {
+//     e.preventDefault();
+//     document.body.style.zoom = 1;
+// });
