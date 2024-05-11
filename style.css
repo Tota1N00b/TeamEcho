@@ -441,7 +441,7 @@ iframe,
 }
 
 .slidyboy-content {
-    height: 100%;
+    height: calc(100% - 48px);
     overflow-y: auto;
 }
 
