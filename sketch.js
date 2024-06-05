@@ -49,7 +49,9 @@ function setup() {
     cnv = createCanvas(windowWidth, windowHeight, WEBGL);
     cnv.parent("sketch-holder");
 
-    sceneNum = 1;
+    // frameRate(determineFrameRate());
+
+    sceneNum = 0;
     maxSceneNum = 2;
     patternNum = 0;
     scaleNum = 1;
@@ -59,6 +61,9 @@ function setup() {
     points = new Points(width, height);
     getStars();
     boxGraphic = createGraphics(width, height);
+    boxGraphic2 = createGraphics(width, height);
+    boxGraphic.clear();
+    boxGraphic2.clear();
     tiltAngle = PI / 20;
 
     pattern.hide();
@@ -95,6 +100,7 @@ function setup() {
 }
 
 let sceneNum, maxSceneNum;
+let firstTime = true;
 let overlayContent;
 let overlayHeading, overlayText;
 let canvasScaleNum, canvasTranslateY, scaleNum, translateY, opacityVal;
@@ -116,6 +122,7 @@ let resizedWidthR,
 let boxGraphic;
 let tiltAngle;
 let stars = [];
+let surpriseColorIndex = 0;
 
 let showDetails = false;
 
@@ -139,8 +146,24 @@ function draw() {
     background(0);
     resizeImage();
     overlayContent = select("div.overlay-content");
+    if (firstTime && patternLoaded) {
+        firstTime = false;
+        calcCanvasTranslateY();
+        points.updateXY(width, height);
+        getStars();
+        boxGraphic.clear();
+        boxGraphic2.clear();
+        // console.log("SUCCESS");
+    }
     if (showDetails) {
         switch (sceneNum) {
+            case 0:
+                overlayHeading = select("div.overlay-content h1");
+                overlayHeading.html("Prototype 3");
+                overlayText = select("div.overlay-content h3");
+                overlayText.html(
+                    "Echo is an interactive installation and immersive space that delves into the power imbalances of our digital era. It simulates a world where manipulated shadows of information obscure truth, much like figures lurking just beyond direct sight. Echo challenges visitors as digital citizens in an evolving landscape to discern the authenticity of fragmented and overwhelming digital data, prompting a deeper consideration of how such narratives shape public consciousness and distort our perceptions of reality.");
+                break;
             case 1:
                 overlayHeading = select("div.overlay-content h1");
                 overlayHeading.html("Prototype 2");
@@ -322,36 +345,68 @@ function draw() {
             }
         });
         pop();
+    } else if (sceneNum == 0) {
+        push();
+        translate(-width / 2, -height / 2, 0);
+
+        boxGraphic2.clear();
+        boxGraphic2.background(0);
+
+        // boxGraphic2.push();
+        // boxGraphic2.image(boxGraphic, 0, 0, 0);
+        // boxGraphic2.pop();
+
+        boxGraphic2.push();
+        boxGraphic2.scale(0.75);
+        boxGraphic2.translate(width / 3, height / 3);
+        boxGraphic2.image(boxGraphic, 0, 0, 0);
+        boxGraphic2.pop();
+
+        boxGraphic2.push();
+        boxGraphic2.scale(0.25);
+        boxGraphic2.translate(width - resizedHeightT, height * 2 + resizedHeightT);
+        boxGraphic2.image(boxGraphic, 0, 0, 0);
+        boxGraphic2.pop();
+
+        boxGraphic2.push();
+        boxGraphic2.scale(0.5);
+        boxGraphic2.translate(width / 2 - resizedHeightT + resizedHeightT / 4, height / 2 - resizedHeightT / 2);
+        boxGraphic2.image(boxGraphic, 0, 0, 0);
+        boxGraphic2.pop();
+
+        // quarter box
+        // boxGraphic2.push();
+        // boxGraphic2.scale(0.5);
+        // boxGraphic2.translate(width / 2 - resizedHeightT / 2, height / 2 - resizedHeightT / 2);
+        // boxGraphic2.image(boxGraphic, 0, 0, 0);
+        // boxGraphic2.pop();
+
+        boxGraphic.background(0, 25);
+        boxGraphic2.blendMode(LIGHTEST);
+        image(boxGraphic2, 0, 0, 0);
+
+        const acc = map(mouseX, 0, width, 0.005, 0.2);
+        stars.forEach((star) => {
+            star.draw();
+            star.update(acc);
+            if (!star.isActive()) {
+                star.reset();
+            }
+        });
+        pop();
     }
-    // Code commented out below is for debugging purposes
-    // push();
-    // noFill();
-    // stroke("green");
-    // circle(0, -resizedHeightR / 2 - 50, 100);
-    // stroke("red");
-    // circle(0, 0, resizedHeightR);
-    // circle(0, 0, resizedHeightT);
-    // stroke("black");
-    // circle(0, 0, 5);
-    // stroke("blue");
-    // circle(0, +resizedHeightR / 2 + 50, 100);
-    // pop();
+
     pop();
 }
 
 function calcCanvasTranslateY() {
-    // canvasTranslateY =
-    //     overlayContent.size().height +
-    //     overlayContent.position().y -
-    //     height +
-    //     resizedHeightR;
     if (sceneNum == 1)
         canvasTranslateY =
             (resizedWidthT + resizedWidthR) / 4 -
             height / 4 +
             overlayContent.position().y / 2 +
             overlayContent.size().height / 2;
-    else if (sceneNum == 2)
+    else if (sceneNum == 2 || sceneNum == 0)
         canvasTranslateY =
             resizedWidthT / 2 -
             height / 4 +
@@ -385,6 +440,10 @@ function mousePressed() {
         patternNextReady = true;
         // console.log("pattern Next Ready in " + (vidDuration - vidTime) + " seconds");
     }
+
+    if (sceneNum == 0) {
+        surpriseColorIndex = random([0, 1, 2, 3]);
+    }
 }
 
 function mouseIsInsideTheRing() {
@@ -409,14 +468,6 @@ class Points {
     }
 
     updateXY(width, height) {
-        // let x1 = width / 3;
-        // let x3 = width / 3;
-        // let x2 = (2 * width) / 3;
-        // let x4 = (2 * width) / 3;
-        // let y1 = height / 3;
-        // let y3 = (2 * height) / 3;
-        // let y2 = height / 3;
-        // let y4 = (2 * height) / 3;
         let x1 = (width - resizedWidthT) / 2;
         let x3 = (width - resizedWidthT) / 2;
         let x2 = (width + resizedWidthT) / 2;
@@ -510,9 +561,14 @@ class Star {
 
     draw() {
         boxGraphic.push();
-        boxGraphic.strokeWeight(2);
+        if (sceneNum == 0 && mouseIsPressed) {
+            boxGraphic.strokeWeight(max(2.5, resizedWidthT * 0.02));
+            boxGraphic.stroke(random(255), random(255), random(255), 3);
+        } else {
+            boxGraphic.strokeWeight(2);
+            boxGraphic.stroke(255, 3);
+        }
         boxGraphic.strokeCap(ROUND);
-        boxGraphic.stroke(255, 3);
         boxGraphic.line(
             this.initPos.x,
             this.initPos.y,
@@ -523,8 +579,29 @@ class Star {
 
         boxGraphic.push();
         const alpha = map(this.vel.mag(), 0, 3, 0, 255);
-        boxGraphic.strokeWeight(3);
-        boxGraphic.stroke(255, alpha);
+        if (sceneNum == 0 && mouseIsPressed) {
+            boxGraphic.strokeWeight(max(3.5, resizedWidthT * 0.03));
+            boxGraphic.colorMode(HSB);
+            let col;
+            switch (surpriseColorIndex) {
+                case 0:
+                    col = map(noise(frameCount / 300 + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 0, 360);
+                    break;
+                case 1:
+                    col = map(noise(frameCount + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 0, 360);
+                    break;
+                case 2:
+                    col = map(noise(frameCount / 300 + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 120, 360);
+                    break;
+                case 3:
+                    col = map(noise(frameCount + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 120, 360);
+                    break;
+            }
+            boxGraphic.stroke(col, 100, 100, map(alpha, 0, 255, 0, 1));
+        } else {
+            boxGraphic.strokeWeight(3);
+            boxGraphic.stroke(255, alpha);
+        }
         boxGraphic.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
         boxGraphic.pop();
     }
@@ -549,6 +626,7 @@ function windowResized() {
     points.updateXY(width, height);
     getStars();
     boxGraphic.clear();
+    boxGraphic2.clear();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -556,26 +634,38 @@ document.addEventListener("DOMContentLoaded", function () {
     const rightButton = document.getElementById("rightButton");
 
     leftButton.addEventListener("click", function () {
+        boxGraphic.clear();
+        boxGraphic2.clear();
         sceneNum--;
-        if (sceneNum < 1) {
+        if (sceneNum < 0) {
             sceneNum = maxSceneNum;
         }
 
-        if (sceneNum == 2) {
+        if (sceneNum == 2 || sceneNum == 0) {
             points.updateXY(width, height);
             getStars();
         }
     });
 
     rightButton.addEventListener("click", function () {
+        boxGraphic.clear();
+        boxGraphic2.clear();
         sceneNum++;
         if (sceneNum > maxSceneNum) {
-            sceneNum = 1;
+            sceneNum = 0;
         }
 
-        if (sceneNum == 2) {
+        if (sceneNum == 2 || sceneNum == 0) {
             points.updateXY(width, height);
             getStars();
         }
     });
 });
+
+function determineFrameRate() {
+    if (windowWidth * windowHeight > 3000000) {
+        return 30;
+    } else {
+        return 60;
+    }
+}
