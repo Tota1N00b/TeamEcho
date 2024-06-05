@@ -141,6 +141,13 @@ function draw() {
     overlayContent = select("div.overlay-content");
     if (showDetails) {
         switch (sceneNum) {
+            case 0:
+                overlayHeading = select("div.overlay-content h1");
+                overlayHeading.html("Prototype 3");
+                overlayText = select("div.overlay-content h3");
+                overlayText.html(
+                    "Entering the ECHO chamber...");
+                break;
             case 1:
                 overlayHeading = select("div.overlay-content h1");
                 overlayHeading.html("Prototype 2");
@@ -322,36 +329,50 @@ function draw() {
             }
         });
         pop();
-    }
-    // Code commented out below is for debugging purposes
-    // push();
-    // noFill();
-    // stroke("green");
-    // circle(0, -resizedHeightR / 2 - 50, 100);
-    // stroke("red");
-    // circle(0, 0, resizedHeightR);
-    // circle(0, 0, resizedHeightT);
-    // stroke("black");
-    // circle(0, 0, 5);
-    // stroke("blue");
-    // circle(0, +resizedHeightR / 2 + 50, 100);
-    // pop();
+    } else if (sceneNum == 0) {
+        push();
+        let ry = map(
+            constrain(mouseX, 0, width),
+            0,
+            width,
+            tiltAngle,
+            -tiltAngle
+        );
+        let rx = map(
+            constrain(mouseY, 0, height),
+            0,
+            height,
+            -tiltAngle,
+            tiltAngle
+        );
+        rotateX(rx);
+        rotateY(ry);
+        scale(scaleVal());
+        translate(-width / 2, -height / 2, 0);
+        image(boxGraphic, 0, 0, 0);
+        boxGraphic.background(0, 25);
+        const acc = map(mouseX, 0, width, 0.005, 0.2);
+        stars.forEach((star) => {
+            star.draw();
+            star.update(acc);
+            if (!star.isActive()) {
+                star.reset();
+            }
+        });
+        pop();
+    } 
+
     pop();
 }
 
 function calcCanvasTranslateY() {
-    // canvasTranslateY =
-    //     overlayContent.size().height +
-    //     overlayContent.position().y -
-    //     height +
-    //     resizedHeightR;
     if (sceneNum == 1)
         canvasTranslateY =
             (resizedWidthT + resizedWidthR) / 4 -
             height / 4 +
             overlayContent.position().y / 2 +
             overlayContent.size().height / 2;
-    else if (sceneNum == 2)
+    else if (sceneNum == 2 || sceneNum == 0)
         canvasTranslateY =
             resizedWidthT / 2 -
             height / 4 +
@@ -409,14 +430,6 @@ class Points {
     }
 
     updateXY(width, height) {
-        // let x1 = width / 3;
-        // let x3 = width / 3;
-        // let x2 = (2 * width) / 3;
-        // let x4 = (2 * width) / 3;
-        // let y1 = height / 3;
-        // let y3 = (2 * height) / 3;
-        // let y2 = height / 3;
-        // let y4 = (2 * height) / 3;
         let x1 = (width - resizedWidthT) / 2;
         let x3 = (width - resizedWidthT) / 2;
         let x2 = (width + resizedWidthT) / 2;
@@ -557,11 +570,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     leftButton.addEventListener("click", function () {
         sceneNum--;
-        if (sceneNum < 1) {
+        if (sceneNum < 0) {
             sceneNum = maxSceneNum;
         }
 
-        if (sceneNum == 2) {
+        if (sceneNum == 2 || sceneNum == 0) {
             points.updateXY(width, height);
             getStars();
         }
@@ -570,10 +583,10 @@ document.addEventListener("DOMContentLoaded", function () {
     rightButton.addEventListener("click", function () {
         sceneNum++;
         if (sceneNum > maxSceneNum) {
-            sceneNum = 1;
+            sceneNum = 0;
         }
 
-        if (sceneNum == 2) {
+        if (sceneNum == 2 || sceneNum == 0) {
             points.updateXY(width, height);
             getStars();
         }
