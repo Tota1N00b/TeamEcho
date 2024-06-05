@@ -49,7 +49,9 @@ function setup() {
     cnv = createCanvas(windowWidth, windowHeight, WEBGL);
     cnv.parent("sketch-holder");
 
-    sceneNum = 1;
+    // frameRate(determineFrameRate());
+
+    sceneNum = 0;
     maxSceneNum = 2;
     patternNum = 0;
     scaleNum = 1;
@@ -60,6 +62,8 @@ function setup() {
     getStars();
     boxGraphic = createGraphics(width, height);
     boxGraphic2 = createGraphics(width, height);
+    boxGraphic.clear();
+    boxGraphic2.clear();
     tiltAngle = PI / 20;
 
     pattern.hide();
@@ -96,6 +100,7 @@ function setup() {
 }
 
 let sceneNum, maxSceneNum;
+let firstTime = true;
 let overlayContent;
 let overlayHeading, overlayText;
 let canvasScaleNum, canvasTranslateY, scaleNum, translateY, opacityVal;
@@ -117,6 +122,7 @@ let resizedWidthR,
 let boxGraphic;
 let tiltAngle;
 let stars = [];
+let surpriseColorIndex = 0;
 
 let showDetails = false;
 
@@ -140,6 +146,15 @@ function draw() {
     background(0);
     resizeImage();
     overlayContent = select("div.overlay-content");
+    if (firstTime && patternLoaded) {
+        firstTime = false;
+        calcCanvasTranslateY();
+        points.updateXY(width, height);
+        getStars();
+        boxGraphic.clear();
+        boxGraphic2.clear();
+        // console.log("SUCCESS");
+    }
     if (showDetails) {
         switch (sceneNum) {
             case 0:
@@ -147,7 +162,7 @@ function draw() {
                 overlayHeading.html("Prototype 3");
                 overlayText = select("div.overlay-content h3");
                 overlayText.html(
-                    "Entering the ECHO chamber...");
+                    "Echo is an interactive installation and immersive space that delves into the power imbalances of our digital era. It simulates a world where manipulated shadows of information obscure truth, much like figures lurking just beyond direct sight. Echo challenges visitors as digital citizens in an evolving landscape to discern the authenticity of fragmented and overwhelming digital data, prompting a deeper consideration of how such narratives shape public consciousness and distort our perceptions of reality.");
                 break;
             case 1:
                 overlayHeading = select("div.overlay-content h1");
@@ -332,23 +347,6 @@ function draw() {
         pop();
     } else if (sceneNum == 0) {
         push();
-        // let ry = map(
-        //     constrain(mouseX, 0, width),
-        //     0,
-        //     width,
-        //     tiltAngle,
-        //     -tiltAngle
-        // );
-        // let rx = map(
-        //     constrain(mouseY, 0, height),
-        //     0,
-        //     height,
-        //     -tiltAngle,
-        //     tiltAngle
-        // );
-        // rotateX(rx);
-        // rotateY(ry);
-        // scale(scaleVal());
         translate(-width / 2, -height / 2, 0);
 
         boxGraphic2.clear();
@@ -441,6 +439,10 @@ function mousePressed() {
     if (patternLoaded && sceneNum == 1 && mouseIsInsideTheRing()) {
         patternNextReady = true;
         // console.log("pattern Next Ready in " + (vidDuration - vidTime) + " seconds");
+    }
+
+    if (sceneNum == 0) {
+        surpriseColorIndex = random([0, 1, 2, 3]);
     }
 }
 
@@ -560,8 +562,8 @@ class Star {
     draw() {
         boxGraphic.push();
         if (sceneNum == 0 && mouseIsPressed) {
-            boxGraphic.strokeWeight(20);
-            boxGraphic.stroke(random(255),random(255),random(255), 3);
+            boxGraphic.strokeWeight(max(2.5, resizedWidthT * 0.02));
+            boxGraphic.stroke(random(255), random(255), random(255), 3);
         } else {
             boxGraphic.strokeWeight(2);
             boxGraphic.stroke(255, 3);
@@ -578,12 +580,23 @@ class Star {
         boxGraphic.push();
         const alpha = map(this.vel.mag(), 0, 3, 0, 255);
         if (sceneNum == 0 && mouseIsPressed) {
-            boxGraphic.strokeWeight(30);
+            boxGraphic.strokeWeight(max(3.5, resizedWidthT * 0.03));
             boxGraphic.colorMode(HSB);
-            let col = map(noise(frameCount/300 + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 0, 360);
-            // let col = map(noise(frameCount + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 0, 360);
-            // let col = map(noise(frameCount/300 + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 120, 360);
-            // let col = map(noise(frameCount + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 120, 360);
+            let col;
+            switch (surpriseColorIndex) {
+                case 0:
+                    col = map(noise(frameCount / 300 + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 0, 360);
+                    break;
+                case 1:
+                    col = map(noise(frameCount + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 0, 360);
+                    break;
+                case 2:
+                    col = map(noise(frameCount / 300 + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 120, 360);
+                    break;
+                case 3:
+                    col = map(noise(frameCount + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 120, 360);
+                    break;
+            }
             boxGraphic.stroke(col, 100, 100, map(alpha, 0, 255, 0, 1));
         } else {
             boxGraphic.strokeWeight(3);
@@ -613,6 +626,7 @@ function windowResized() {
     points.updateXY(width, height);
     getStars();
     boxGraphic.clear();
+    boxGraphic2.clear();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -620,6 +634,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const rightButton = document.getElementById("rightButton");
 
     leftButton.addEventListener("click", function () {
+        boxGraphic.clear();
+        boxGraphic2.clear();
         sceneNum--;
         if (sceneNum < 0) {
             sceneNum = maxSceneNum;
@@ -632,6 +648,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     rightButton.addEventListener("click", function () {
+        boxGraphic.clear();
+        boxGraphic2.clear();
         sceneNum++;
         if (sceneNum > maxSceneNum) {
             sceneNum = 0;
@@ -643,3 +661,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+function determineFrameRate() {
+    if (windowWidth * windowHeight > 3000000) {
+        return 30;
+    } else {
+        return 60;
+    }
+}
