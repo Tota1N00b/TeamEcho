@@ -59,6 +59,7 @@ function setup() {
     points = new Points(width, height);
     getStars();
     boxGraphic = createGraphics(width, height);
+    boxGraphic2 = createGraphics(width, height);
     tiltAngle = PI / 20;
 
     pattern.hide();
@@ -331,26 +332,61 @@ function draw() {
         pop();
     } else if (sceneNum == 0) {
         push();
-        let ry = map(
-            constrain(mouseX, 0, width),
-            0,
-            width,
-            tiltAngle,
-            -tiltAngle
-        );
-        let rx = map(
-            constrain(mouseY, 0, height),
-            0,
-            height,
-            -tiltAngle,
-            tiltAngle
-        );
-        rotateX(rx);
-        rotateY(ry);
-        scale(scaleVal());
+        // let ry = map(
+        //     constrain(mouseX, 0, width),
+        //     0,
+        //     width,
+        //     tiltAngle,
+        //     -tiltAngle
+        // );
+        // let rx = map(
+        //     constrain(mouseY, 0, height),
+        //     0,
+        //     height,
+        //     -tiltAngle,
+        //     tiltAngle
+        // );
+        // rotateX(rx);
+        // rotateY(ry);
+        // scale(scaleVal());
         translate(-width / 2, -height / 2, 0);
-        image(boxGraphic, 0, 0, 0);
+
+        boxGraphic2.clear();
+        boxGraphic2.background(0);
+
+        // boxGraphic2.push();
+        // boxGraphic2.image(boxGraphic, 0, 0, 0);
+        // boxGraphic2.pop();
+
+        boxGraphic2.push();
+        boxGraphic2.scale(0.75);
+        boxGraphic2.translate(width / 3, height / 3);
+        boxGraphic2.image(boxGraphic, 0, 0, 0);
+        boxGraphic2.pop();
+
+        boxGraphic2.push();
+        boxGraphic2.scale(0.25);
+        boxGraphic2.translate(width - resizedHeightT, height * 2 + resizedHeightT);
+        boxGraphic2.image(boxGraphic, 0, 0, 0);
+        boxGraphic2.pop();
+
+        boxGraphic2.push();
+        boxGraphic2.scale(0.5);
+        boxGraphic2.translate(width / 2 - resizedHeightT + resizedHeightT / 4, height / 2 - resizedHeightT / 2);
+        boxGraphic2.image(boxGraphic, 0, 0, 0);
+        boxGraphic2.pop();
+
+        // quarter box
+        // boxGraphic2.push();
+        // boxGraphic2.scale(0.5);
+        // boxGraphic2.translate(width / 2 - resizedHeightT / 2, height / 2 - resizedHeightT / 2);
+        // boxGraphic2.image(boxGraphic, 0, 0, 0);
+        // boxGraphic2.pop();
+
         boxGraphic.background(0, 25);
+        boxGraphic2.blendMode(LIGHTEST);
+        image(boxGraphic2, 0, 0, 0);
+
         const acc = map(mouseX, 0, width, 0.005, 0.2);
         stars.forEach((star) => {
             star.draw();
@@ -360,7 +396,7 @@ function draw() {
             }
         });
         pop();
-    } 
+    }
 
     pop();
 }
@@ -523,9 +559,14 @@ class Star {
 
     draw() {
         boxGraphic.push();
-        boxGraphic.strokeWeight(2);
+        if (sceneNum == 0 && mouseIsPressed) {
+            boxGraphic.strokeWeight(20);
+            boxGraphic.stroke(random(255),random(255),random(255), 3);
+        } else {
+            boxGraphic.strokeWeight(2);
+            boxGraphic.stroke(255, 3);
+        }
         boxGraphic.strokeCap(ROUND);
-        boxGraphic.stroke(255, 3);
         boxGraphic.line(
             this.initPos.x,
             this.initPos.y,
@@ -536,8 +577,18 @@ class Star {
 
         boxGraphic.push();
         const alpha = map(this.vel.mag(), 0, 3, 0, 255);
-        boxGraphic.strokeWeight(3);
-        boxGraphic.stroke(255, alpha);
+        if (sceneNum == 0 && mouseIsPressed) {
+            boxGraphic.strokeWeight(30);
+            boxGraphic.colorMode(HSB);
+            let col = map(noise(frameCount/300 + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 0, 360);
+            // let col = map(noise(frameCount + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 0, 360);
+            // let col = map(noise(frameCount/300 + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 120, 360);
+            // let col = map(noise(frameCount + this.initPos.x + this.initPos.y + this.endPos.x + this.endPos.y), 0, 1, 120, 360);
+            boxGraphic.stroke(col, 100, 100, map(alpha, 0, 255, 0, 1));
+        } else {
+            boxGraphic.strokeWeight(3);
+            boxGraphic.stroke(255, alpha);
+        }
         boxGraphic.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
         boxGraphic.pop();
     }
